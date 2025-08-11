@@ -1,0 +1,53 @@
+import Seo from "@/components/Seo";
+import Navbar from "@/components/landing/Navbar";
+import Hero from "@/components/landing/Hero";
+import Features from "@/components/landing/Features";
+import Pricing from "@/components/landing/Pricing";
+import CTA from "@/components/landing/CTA";
+import Footer from "@/components/landing/Footer";
+
+
+const Index = () => {
+  const canonical = typeof window !== "undefined" && window.location
+    ? new URL(window.location.pathname, window.location.origin).toString()
+    : "/";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "JusUP",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description:
+      "JusUP é um SaaS de gestão financeira organizacional com relatórios e segurança.",
+    offers: {
+      "@type": "Offer",
+      price: "79",
+      priceCurrency: "BRL",
+    },
+    url: canonical,
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <Seo
+        title="JusUP — Sistema Financeiro Organizacional"
+        description="JusUP: SaaS de gestão financeira organizacional com relatórios e segurança."
+        canonical={canonical}
+        jsonLd={jsonLd}
+      />
+
+      <Navbar />
+      <main>
+        <Hero />
+        <Features />
+        <Pricing />
+        <div className="py-8" />
+        <CTA />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
