@@ -4,6 +4,7 @@ import Hero from "@/components/landing/Hero";
 import Features from "@/components/landing/Features";
 import Pricing from "@/components/landing/Pricing";
 import CTA from "@/components/landing/CTA";
+import Contact from "@/components/landing/Contact";
 import Footer from "@/components/landing/Footer";
 
 
@@ -43,7 +44,8 @@ const Index = () => {
         <Features />
         <Pricing />
         <div className="py-8" />
-        <CTA />
+        {/* <CTA /> */}
+        <Contact />
       </main>
       <Footer />
     </div>

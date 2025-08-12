@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-jusup.jpg";
+import heroImage from "@/assets/hero.png";
 import { gsap } from "@/lib/gsap";
 
 const Hero = () => {
@@ -54,7 +54,7 @@ const Hero = () => {
             <p data-hero="subtitle" className="text-pretty text-lg text-muted-foreground">
               Centralize processos e tenha visibilidade total do fluxo financeiro com relatórios em tempo real.
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex gap-3 flex-row">
               <a data-hero="cta" href="#precos">
                 <Button variant="hero" size="lg">Ver plano</Button>
               </a>
@@ -72,7 +72,7 @@ const Hero = () => {
               alt="Painel do JusUP com gráficos, cartões analíticos e visão geral financeira em modo escuro com roxo."
               className="w-full rounded-xl border bg-card object-cover shadow-elegant"
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
             />
           </div>
         </div>

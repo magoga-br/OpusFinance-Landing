@@ -11,7 +11,7 @@ const CTA = () => {
           </p>
           <div className="mt-6 flex justify-center gap-3">
             <a href="#precos"><Button variant="hero" size="lg">Ver plano</Button></a>
-            <Button variant="ghostPrimary" size="lg">Falar com vendas</Button>
+            <a href="#contato"><Button variant="ghost" size="lg">Entrar em contato</Button></a>
           </div>
         </div>
       </div>
