@@ -1,15 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero.png";
+// @ts-ignore - image assets
+import heroDark from "@/assets/hero_dark.jpg";
+// @ts-ignore - image assets
+import heroLight from "@/assets/hero_light.jpg";
 import { gsap } from "@/lib/gsap";
 
 const Hero = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const tlRef = useRef<any>(null);
   const [reduced, setReduced] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string>(heroDark);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const update = () => {
+      const isDark = html.classList.contains("dark");
+      setImgSrc(isDark ? heroDark : heroLight);
+    };
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(html, { attributes: true, attributeFilter: ["class"] });
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -49,7 +67,7 @@ const Hero = () => {
           <div className="space-y-6">
             <p data-hero="eyebrow" className="text-sm font-medium text-muted-foreground">Sistema Financeiro Organizacional</p>
             <h1 data-hero="title" className="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
-              Eleve as finanças da sua organização com a precisão do <span className="text-gradient-brand">JusUP</span>
+              Eleve as finanças da sua organização com a precisão da <span className="text-gradient-brand">OpusFinance</span>
             </h1>
             <p data-hero="subtitle" className="text-pretty text-lg text-muted-foreground">
               Centralize processos e tenha visibilidade total do fluxo financeiro com relatórios em tempo real.
@@ -68,11 +86,11 @@ const Hero = () => {
             <div className="absolute -inset-6 -z-10 rounded-2xl bg-gradient-primary opacity-20 blur-2xl" aria-hidden />
             <img
               data-hero="mock"
-              src={heroImage}
-              alt="Painel do JusUP com gráficos, cartões analíticos e visão geral financeira em modo escuro com roxo."
+              src={imgSrc}
+              alt="Painel do OpusFinance com gráficos, cartões analíticos e visão geral financeira em modo escuro com roxo."
               className="w-full rounded-xl border bg-card object-cover shadow-elegant"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>

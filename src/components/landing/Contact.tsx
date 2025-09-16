@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Card,
   CardContent,
@@ -22,6 +23,7 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sendViaWhatsApp, setSendViaWhatsApp] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -37,23 +39,47 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simular envio do formulário
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const subject = `Contato via site: ${formData.subject}`;
+    const messageText = (formData.message || "").trim() || "Olá, tenho uma dúvida sobre a OpusFinance.";
+    const bodyLines = [
+      `Nome: ${formData.name}`,
+      `Email: ${formData.email}`,
+      formData.phone ? `Telefone: ${formData.phone}` : undefined,
+      "",
+      messageText,
+    ].filter(Boolean) as string[];
+    const body = bodyLines.join("%0D%0A");
 
-    // Aqui você pode integrar com seu backend ou serviço de email
-    console.log("Dados do formulário:", formData);
-
-    // Reset do formulário
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
-
-    setIsSubmitting(false);
-    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+    try {
+      if (sendViaWhatsApp) {
+        const text = [
+          `Assunto: ${formData.subject}`,
+          `Nome: ${formData.name}`,
+          formData.phone ? `Telefone: ${formData.phone}` : undefined,
+          formData.email ? `Email: ${formData.email}` : undefined,
+          "",
+          messageText,
+        ]
+          .filter(Boolean)
+          .join("\n");
+        const waUrl = `https://wa.me/5511934814537?text=${encodeURIComponent(text)}`;
+        window.open(waUrl, "_blank");
+      } else {
+        const mailto = `mailto:gabrielsilacoelho@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+        window.location.href = mailto;
+      }
+    } finally {
+      // Reset do formulário
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+      setSendViaWhatsApp(false);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -64,7 +90,7 @@ const Contact = () => {
             Entre em Contato
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Tem dúvidas sobre o JusUP? Nossa equipe está pronta para ajudar você
+            Tem dúvidas sobre a OpusFinance? Nossa equipe está pronta para ajudar você
             a encontrar a melhor solução para sua empresa.
           </p>
         </div>
@@ -198,6 +224,22 @@ const Contact = () => {
                     rows={5}
                     required
                   />
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="send-whatsapp"
+                      checked={sendViaWhatsApp}
+                      onCheckedChange={setSendViaWhatsApp}
+                    />
+                    <Label htmlFor="send-whatsapp" className="text-sm">
+                      Enviar via WhatsApp
+                    </Label>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {sendViaWhatsApp ? "Abrirá o WhatsApp" : "Abrirá seu app de email"}
+                  </span>
                 </div>
 
                 <Button

@@ -16,11 +16,11 @@ const Index = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "JusUP",
+    name: "OpusFinance",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     description:
-      "JusUP é um SaaS de gestão financeira organizacional com relatórios e segurança.",
+      "OpusFinance é um SaaS de gestão financeira organizacional com relatórios e segurança.",
     offers: {
       "@type": "Offer",
       price: "79",
@@ -32,8 +32,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Seo
-        title="JusUP — Sistema Financeiro Organizacional"
-        description="JusUP: SaaS de gestão financeira organizacional com relatórios e segurança."
+        title="OpusFinance — Sistema Financeiro Organizacional"
+        description="OpusFinance: SaaS de gestão financeira organizacional com relatórios e segurança."
         canonical={canonical}
         jsonLd={jsonLd}
       />

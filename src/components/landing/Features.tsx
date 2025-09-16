@@ -102,9 +102,6 @@ const Features = () => {
   return (
     <section id="recursos" className="container mx-auto py-20 md:py-32">
       <div ref={root} className="mx-auto max-w-4xl text-center">
-        <div className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-          ✨ Recursos avançados
-        </div>
         <h2 className="features-title text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
           Tudo que você precisa para{" "}
           <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
